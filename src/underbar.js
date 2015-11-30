@@ -99,6 +99,19 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var copy = array.slice();
+    var result = [];
+    for (var i = 0; i < copy.length; i++) {
+      for (var j = i+1; j < copy.length; j++) {
+        if (array[j] == array[i]) {
+          copy[j] = null;
+        }
+      }
+      if (copy[i] != null) {
+        result.push(copy[i]);
+      }
+    }
+    return result;
   };
 
 
