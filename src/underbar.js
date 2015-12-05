@@ -309,6 +309,7 @@
     var alreadyCalled = {};
 
     return function() {
+      // Converts the array of arguments into a unique string key
       var key = Array.prototype.slice.call(arguments).toString();
       if (alreadyCalled[key] === undefined) {
         alreadyCalled[key] = func.apply(this, arguments);
@@ -324,6 +325,11 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments, 2);
+
+    return setTimeout(function() {
+      return func.apply(this, args);
+    }, wait);
   };
 
 
