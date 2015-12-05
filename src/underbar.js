@@ -121,15 +121,9 @@
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     var results = [];
-    if (Array.isArray(collection)) {
-      for (var i = 0; i < collection.length; i++) {
-        results.push(iterator(collection[i], i, collection));
-      }
-    } else {
-      for (var j in collection) {
-        results.push(iterator(collection[j], j, collection));
-      }
-    }
+    _.each(collection, function(value, key, collection) {
+      results.push(iterator(value, key, collection));
+    });
     return results;
   };
 
