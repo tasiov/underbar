@@ -121,8 +121,8 @@
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     var results = [];
-    _.each(collection, function(value, key, collection) {
-      results.push(iterator(value, key, collection));
+    _.each(collection, function(value) {
+      results.push(iterator(value));
     });
     return results;
   };
@@ -194,6 +194,15 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (arguments.length > 1) {
+      return _.reduce(collection, function(allTrue, item) {
+        return Boolean(allTrue && iterator(item));
+      }, true);
+    } else {
+      return _.reduce(collection, function(allTrue, item) {
+        return Boolean(allTrue && _.identity(item));
+      }, true);
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
